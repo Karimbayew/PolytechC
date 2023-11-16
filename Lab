@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+    
+float i, xStart, xEnd, xStep, x, t, ln, libF, delta, eps, xIdeal, lnTwo;
+float arr[15] = {};
+
+int main() {
+    
+    cout << "Введите значение x_Start: ";
+    cin >> xStart;
+    cout << "Введите значение x_End: ";
+    cin >> xEnd;
+    cout << "Введите шаг х: ";
+    cin >> xStep;
+    cout << "Введите Точность: ";
+    cin >> t;
+    
+    cout << left << setw(20) << "x" << left << setw(20) << "Row Function" << left << setw(20) << "Library Funtion" << left << setw(30) << "delta" << endl;
+    for( i = xStart; i <= xEnd; i += xStep) {
+        
+        ln = log((1+i)/(1-i));
+        libF = 2 * ( i + (pow(i, 3)/3) + (pow(i, 5) / 5) + (pow(i, 7) / 7));
+        delta = sqrt(pow(ln, 2) - pow(libF, 2));
+        cout << left << setw(20) << i << left << setw(20) << ln << left << setw(20) << libF << left << setw(30) << delta << endl;
+    }
+    
+    cout << endl;
+    cout << "Введите x ideal: ";
+    cin >> xIdeal;
+    
+    cout << left << setw(20) << "Eps" << left << setw(20) << "Row Function" << left << setw(20) << "Library Funtion" << left << setw(30) << "delta" << endl;
+    
+    for( i = 1; i <= 7; i ++ ) 
+    {
+        eps=pow(10,(-1*i));
+        ln = log((1+xIdeal+eps)/(1-xIdeal-eps));
+        lnTwo = log((1+xIdeal)/(1-xIdeal));
+        
+        if( eps == t) {
+            cout << left << setw(20) << eps << left << setw(20) << lnTwo << left << setw(20) << libF << left << setw(30) << delta << endl;
+            
+        }
+        
+        libF = 2 * ( xIdeal + (pow(xIdeal, 3)/3) + (pow(xIdeal, 5) / 5) + (pow(xIdeal, 7) / 7));
+        delta = sqrt(pow(ln, 2) - pow(libF, 2));
+        if (eps == t) {
+            continue;
+        } else {
+            cout << left << setw(20) << eps << left << setw(20) << ln << left << setw(20) << libF << left << setw(30) << delta / 10 << endl;
+        }
+    }
+}
